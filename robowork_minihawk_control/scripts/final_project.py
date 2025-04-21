@@ -16,8 +16,8 @@ class FinalProject:
         rospy.init_node('final_project_node', anonymous = True)
         
         #establishing services
-        rospy.wait_for_service('/mavros/set_mode')
-        rospy.wait_for_service('/mavros/cmd/arming')
+        rospy.wait_for_service('/minihawk_SIM/mavros/set_mode')
+        rospy.wait_for_service('/minihawk_SIM/mavros/cmd/arming')
 
 
         #calling services
@@ -29,7 +29,7 @@ class FinalProject:
 
     def set_auto_mode(self):
         try:
-            set_mode = rospy.ServiceProxy('/mavros/set_mode', SetMode)
+            set_mode = rospy.ServiceProxy('/minihawk_SIM/mavros/set_mode', SetMode)
             set_mode(0, 'AUTO')
 
         except rospy.ServiceException as e:
@@ -37,7 +37,7 @@ class FinalProject:
 
     def arm_motors(self):
         try:
-            armed = rospy.ServiceProxy('/mavros/cmd/arming', CommandBool)
+            armed = rospy.ServiceProxy('/minihawk_SIM/mavros/cmd/arming', CommandBool)
             armed(True)
         except rospy.ServiceException as e:
             print('Errored: ', e)
@@ -55,7 +55,7 @@ class FinalProject:
     def finetune_position(self):
         #setting to qloiter
         try:
-            set_mode = rospy.ServiceProxy('/mavros/set_mode', SetMode)
+            set_mode = rospy.ServiceProxy('/minihawk_SIM/mavros/set_mode', SetMode)
             set_mode(0, 'QLOITER')  
         except rospy.ServiceException as e:
             print('Errored: ', e)
@@ -95,7 +95,7 @@ class FinalProject:
 
     def set_land_mode(self):
         try:
-            set_mode = rospy.ServiceProxy('/mavros/set_mode', SetMode)
+            set_mode = rospy.ServiceProxy('/minihawk_SIM/mavros/set_mode', SetMode)
             set_mode(0, 'QLAND')
 
         except rospy.ServiceException as e:
