@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import rospy
 from mavros_msgs.srv import SetMode, CommandBool
 from apriltag_ros.msg import AprilTagDetectionArray
