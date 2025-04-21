@@ -71,8 +71,7 @@ class FinalProject:
                 apriltag_x_offset = apriltag_position.x
                 apriltag_y_offset = apriltag_position.y
 
-                if abs(apriltag_x_offset) < 0.00005 and abs(apriltag_y_offset) < 0.00005:
-                    print('\n\n\n\n\n\nRRRRRRRRRAAAAAAAAAAAAA\n\\n\n\n\n\n\n\n\n\n\n')
+                if abs(apriltag_x_offset) < 0.1 and abs(apriltag_y_offset) < 0.1:
                     break
                 
 
@@ -92,7 +91,7 @@ class FinalProject:
 
                 publish_control.publish(control)
 
-                rospy.sleep(0.1)
+                rospy.sleep(0.5)
 
 
     def set_land_mode(self):
