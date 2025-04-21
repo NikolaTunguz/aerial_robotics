@@ -71,8 +71,10 @@ class FinalProject:
                 apriltag_x_offset = apriltag_position.x
                 apriltag_y_offset = apriltag_position.y
 
-                if abs(apriltag_x_offset) < 0.005 and abs(apriltag_y_offset) < 0.005:
+                if abs(apriltag_x_offset) < 0.00005 and abs(apriltag_y_offset) < 0.00005:
+                    print('\n\n\n\n\n\nRRRRRRRRRAAAAAAAAAAAAA\n\\n\n\n\n\n\n\n\n\n\n')
                     break
+                
 
                 #calculate roll
                 p = 10
