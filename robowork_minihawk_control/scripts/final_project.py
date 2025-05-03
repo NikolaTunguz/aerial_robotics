@@ -51,6 +51,11 @@ class FinalProject:
 
     def apriltag_return(self, message):
         if len(message.detections) > 0:
+            detection = message.detections[0]
+            pose = detection.pose
+
+            apriltag_position = pose.position
+            orientation = pose.orientation
             #QLOITER on first apriltag detection
             if not self.loiter_set:
                 try:
@@ -64,14 +69,6 @@ class FinalProject:
 
             #self.apriltag_data = message.detections[0]
             #self.apriltag_detection = True
-
-            if hasattr(message.detections[0].pose, "pose"):
-                apriltag_position = message.detections[0].pose.pose.position
-                orientation = message.detections[0].pose.pose.orientation
-            else:
-                apriltag_position = message.detections[0].pose.position
-                orientation = message.detections[0].pose.orientation
-
             apriltag_x_offset = apriltag_position.x
             apriltag_y_offset = apriltag_position.y
 
@@ -86,7 +83,7 @@ class FinalProject:
             control.channels = [roll, pitch, throttle, yaw, 0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
             self.publish_control.publish(control)
-            
+
             #land if within threshold
             quat = (orientation.x, orientation.y, orientation.z, orientation.w)
             _, _, yaw = tf.transformations.euler_from_quaternion(quat)
