@@ -9,7 +9,7 @@ class FinalProject:
     def __init__(self):
         self.apriltag_data = None
         self.apriltag_detection = False
-        self.rate = rospy.Rate(10)  # 10 Hz update
+        #self.rate = rospy.Rate(10)  # 10 Hz update
 
         rospy.init_node('final_project_node', anonymous=True)
 
@@ -67,7 +67,7 @@ class FinalProject:
             if self.apriltag_detection:
                 rospy.loginfo("AprilTag detected!")
                 break
-            self.rate.sleep()
+            #self.rate.sleep()
         rospy.sleep(1)  # short pause
 
     def finetune_position(self):
@@ -104,7 +104,7 @@ class FinalProject:
             else:
                 print("No AprilTag detected, holding position.")
 
-            self.rate.sleep()
+            #self.rate.sleep()
             iteration += 1
 
     def set_land_mode(self):
