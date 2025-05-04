@@ -47,6 +47,7 @@ class FinalProject:
         if len(message.detections) > 0:
             self.apriltag_data = message.detections[0]
             self.apriltag_detection = True
+            print('\n\nnew apriltag data\n\n')
 
     def get_apriltag_position(self, pose):
         while hasattr(pose, "pose"):
