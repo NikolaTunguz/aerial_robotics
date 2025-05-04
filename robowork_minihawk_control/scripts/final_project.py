@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import rospy
 from mavros_msgs.srv import SetMode, CommandBool
 from apriltag_ros.msg import AprilTagDetectionArray
@@ -21,7 +20,6 @@ class FinalProject:
 
 
         #calling services
-        #print('\n\n\n\n\n\n\n\n\n\n\TESTTESTTESTTEST\n\n\n\n\n\n')
         self.set_auto_mode()
         self.arm_motors()
         self.wait_for_apriltag()
@@ -47,7 +45,6 @@ class FinalProject:
         if len(message.detections) > 0:
             self.apriltag_data = message.detections[0]
             self.apriltag_detection = True
-            #print('\n\nnew apriltag data\n\n')
 
     def get_apriltag_position(self, pose):
         while hasattr(pose, "pose"):
@@ -69,7 +66,6 @@ class FinalProject:
             print('Errored: ', e)
 
         publish_control = rospy.Publisher('/minihawk_SIM/mavros/rc/override', OverrideRCIn, queue_size = 10)
-
 
         #pid variables
         Kp = 10.0
