@@ -21,6 +21,7 @@ class FinalProject:
 
 
         #calling services
+        print('\n\n\n\n\n\n\n\n\n\n\TESTTESTTESTTEST\n\n\n\n\n\n')
         self.set_auto_mode()
         self.arm_motors()
         self.wait_for_apriltag()
