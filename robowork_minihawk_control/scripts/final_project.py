@@ -52,10 +52,14 @@ class FinalProject:
     def apriltag_return(self, message):
         if len(message.detections) > 0:
             detection = message.detections[0]
-            pose = detection.pose
 
-            apriltag_position = pose.position
-            orientation = pose.orientation
+            if hasattr(detection.pose, "pose"):
+                apriltag_position = detection.pose.pose.position
+                orientation = detection.pose.pose.orientation
+            else:
+                apriltag_position = detection.pose.position
+                orientation = detection.pose.orientation
+                
             #QLOITER on first apriltag detection
             if not self.loiter_set:
                 try:
