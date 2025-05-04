@@ -82,11 +82,11 @@ class FinalProject:
                 
 
                 #calculate roll
-                p = 10
+                p = 10000
                 roll = max(1000, min(2000, int (1500 - p * apriltag_x_offset)))
 
                 #calculate pitch
-                p = 10
+                p = 10000
                 pitch = max(1000, min(2000, int (1500 + p * apriltag_y_offset)))
 
                 throttle = 1500
