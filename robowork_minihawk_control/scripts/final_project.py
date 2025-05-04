@@ -21,7 +21,7 @@ class FinalProject:
 
 
         #calling services
-        print('\n\n\n\n\n\n\n\n\n\n\TESTTESTTESTTEST\n\n\n\n\n\n')
+        #print('\n\n\n\n\n\n\n\n\n\n\TESTTESTTESTTEST\n\n\n\n\n\n')
         self.set_auto_mode()
         self.arm_motors()
         self.wait_for_apriltag()
@@ -47,7 +47,7 @@ class FinalProject:
         if len(message.detections) > 0:
             self.apriltag_data = message.detections[0]
             self.apriltag_detection = True
-            print('\n\nnew apriltag data\n\n')
+            #print('\n\nnew apriltag data\n\n')
 
     def get_apriltag_position(self, pose):
         while hasattr(pose, "pose"):
@@ -77,17 +77,19 @@ class FinalProject:
                 apriltag_x_offset = apriltag_position.x
                 apriltag_y_offset = apriltag_position.y
 
-                if abs(apriltag_x_offset) < 0.1 and abs(apriltag_y_offset) < 0.1:
+                print(apriltag_x_offset, apriltag_y_offset)
+
+                if abs(apriltag_x_offset) < 1 and abs(apriltag_y_offset) < 1:
                     #break
                     print('it tried to break')
                 
 
                 #calculate roll
-                p = 10000
+                p = 250
                 roll = max(1000, min(2000, int (1500 - p * apriltag_x_offset)))
 
                 #calculate pitch
-                p = 10000
+                p = 250
                 pitch = max(1000, min(2000, int (1500 + p * apriltag_y_offset)))
 
                 throttle = 1500
