@@ -58,6 +58,7 @@ class FinalProject:
         apriltag_subscriber = rospy.Subscriber('/minihawk_SIM/MH_usb_camera_link_optical/tag_detections', AprilTagDetectionArray, self.apriltag_return)
         while not self.apriltag_detection and not rospy.is_shutdown():
             rospy.sleep(0.1)
+        rospy.sleep(1)
 
     def finetune_position(self):
         #setting to qloiter
