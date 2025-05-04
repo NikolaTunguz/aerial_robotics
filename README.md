@@ -166,6 +166,7 @@ cd $HOME/aerial_robotics_ws/ardupilot
 ./Tools/autotest/sim_vehicle.py -v ArduPlane -f gazebo-minihawk --model gazebo-quadplane-tilttri --console  # --map
 
 [Launch Rviz in new terminal]:
+cd $HOME/aerial_robotics_ws
 source devel/setup.bash
 rviz -d $HOME/aerial_robotics_ws/src/aerial_robotics/robowork_minihawk_launch/config/minihawk_SIM.rviz
 
