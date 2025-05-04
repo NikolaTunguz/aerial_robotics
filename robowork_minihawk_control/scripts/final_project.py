@@ -58,7 +58,7 @@ class FinalProject:
         apriltag_subscriber = rospy.Subscriber('/minihawk_SIM/MH_usb_camera_link_optical/tag_detections', AprilTagDetectionArray, self.apriltag_return)
         while not self.apriltag_detection and not rospy.is_shutdown():
             rospy.sleep(0.1)
-        rospy.sleep(1)
+        rospy.sleep(5)
 
     def finetune_position(self):
         #setting to qloiter
@@ -86,11 +86,11 @@ class FinalProject:
                 
 
                 #calculate roll
-                p = 5
+                p = 50
                 roll = max(1000, min(2000, int (1500 + p * apriltag_y_offset)))
 
                 #calculate pitch
-                p = 5
+                p = 50
                 pitch = max(1000, min(2000, int (1500 - p * apriltag_x_offset)))
 
                 throttle = 1500
