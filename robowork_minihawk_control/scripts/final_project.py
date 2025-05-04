@@ -49,17 +49,18 @@ class FinalProject:
         except rospy.ServiceException as e:
             print('Errored: ', e)
 
+    def get_position_orientation(self, pose):
+    # Go as deep as possible if .pose exists, then extract position and orientation
+        while hasattr(pose, "pose"):
+            pose = pose.pose
+        return pose.position, pose.orientation
+
     def apriltag_return(self, message):
         if len(message.detections) > 0:
             detection = message.detections[0]
 
-            if hasattr(detection.pose, "pose"):
-                apriltag_position = detection.pose.pose.position
-                orientation = detection.pose.pose.orientation
-            else:
-                apriltag_position = detection.pose.position
-                orientation = detection.pose.orientation
-                
+            apriltag_position, orientation = self.get_position_orientation(detection.pose)
+
             #QLOITER on first apriltag detection
             if not self.loiter_set:
                 try:
@@ -77,7 +78,7 @@ class FinalProject:
             apriltag_y_offset = apriltag_position.y
 
             #calculate roll
-            p = 10
+            p = 100
             roll = max(1000, min(2000, int(1500 - p * apriltag_x_offset)))
             pitch = max(1000, min(2000, int(1500 + p * apriltag_y_offset)))
             throttle = 1500
