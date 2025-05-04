@@ -47,10 +47,10 @@ class FinalProject:
             self.apriltag_data = message.detections[0]
             self.apriltag_detection = True
 
-    def get_position_orientation(self, pose):
+    def get_apriltag_position(self, pose):
         while hasattr(pose, "pose"):
             pose = pose.pose
-        return pose.position, pose.orientation
+        return pose.position
 
     def wait_for_apriltag(self):
         apriltag_subscriber = rospy.Subscriber('/minihawk_SIM/MH_usb_camera_link_optical/tag_detections', AprilTagDetectionArray, self.apriltag_return)
@@ -71,7 +71,7 @@ class FinalProject:
         while True:
             if self.apriltag_data:
                 #take data
-                apriltag_position = self.apriltag_data.pose.pose.position
+                apriltag_position = self.get_apriltag_position(self.apriltag_data.pose)#self.apriltag_data.pose.pose.position
                 apriltag_x_offset = apriltag_position.x
                 apriltag_y_offset = apriltag_position.y
 
