@@ -148,3 +148,42 @@ rosservice call /minihawk_SIM/mavros/set_mode "custom_mode: 'QHOVER'"
 [Invoke ROS service in terminal 2]:
 rosservice call /minihawk_SIM/mavros/set_mode "custom_mode: 'QLAND'"
 ```
+
+
+## Final Project
+```
+[Setup for Creating Executable]:
+cd $HOME/aerial_robotics_ws
+chmod +x src/aerial_robotics/robowork_minihawk_control/scripts/final_project.py
+catkin build
+source devel/setup.bash
+
+[Launch ROS Gazebo SIM in new terminal]:
+roslaunch robowork_minihawk_gazebo minihawk_playpen.launch
+
+[Launch Ardupilot Gazebo SITL in new terminal]:
+cd $HOME/aerial_robotics_ws/ardupilot
+./Tools/autotest/sim_vehicle.py -v ArduPlane -f gazebo-minihawk --model gazebo-quadplane-tilttri --console  # --map
+
+[Launch Rviz in new terminal]:
+source devel/setup.bash
+rviz -d $HOME/aerial_robotics_ws/src/aerial_robotics/robowork_minihawk_launch/config/minihawk_SIM.rviz
+
+### MAVProxy-based commanding ###
+
+[Load sample mission waypoints in Gazebo SITL terminal]
+wp load ../src/aerial_robotics/robowork_minihawk_gazebo/resources/waypoints.txt
+
+### MAVROS-based commanding ###
+
+[Launch ROS node in new terminal 1]:
+cd $HOME/aerial_robotics_ws
+source devel/setup.bash
+ROS_NAMESPACE="minihawk_SIM" roslaunch robowork_minihawk_launch vehicle1_apm_SIM.launch
+
+[Invoke Final Project ROS service in new terminal 2]:
+cd $HOME/aerial_robotics_ws
+source devel/setup.bash
+roslaunch robowork_minihawk_control control.launch
+
+```
