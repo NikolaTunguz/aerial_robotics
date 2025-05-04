@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <launch>
+  <node name="final_project_node" pkg="robowork_minihawk_control" type="final_project.py" output="screen"/>
+
 
   <!-- <arg name="robot_namespace" default=""/>
   <arg name="arm_namespace" default=""/>
