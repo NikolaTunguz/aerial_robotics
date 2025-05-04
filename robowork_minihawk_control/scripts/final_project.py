@@ -58,7 +58,7 @@ class FinalProject:
         apriltag_subscriber = rospy.Subscriber('/minihawk_SIM/MH_usb_camera_link_optical/tag_detections', AprilTagDetectionArray, self.apriltag_return)
         while not self.apriltag_detection and not rospy.is_shutdown():
             rospy.sleep(0.1)
-        rospy.sleep(5)
+        rospy.sleep(3)
 
     def finetune_position(self):
         #setting to qloiter
@@ -72,7 +72,7 @@ class FinalProject:
 
 
         #pid variables
-        Kp = 15.0
+        Kp = 10.0
         Ki = 0.1
         Kd = 5.0
 
@@ -113,7 +113,7 @@ class FinalProject:
                 derivative_x = (apriltag_x_offset - prev_error_x) / dt
                 pitch_out = Kp * apriltag_x_offset + Ki * integral_x + Kd * derivative_x
                 prev_error_x = apriltag_x_offset
-                pitch = int(max(1000, min(2000, 1500 - pitch_out)))
+                pitch = int(max(1000, min(2000, 1500 + pitch_out)))
 
                 throttle = 1500
                 yaw = 1500
