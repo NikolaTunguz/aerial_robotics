@@ -55,7 +55,7 @@ class FinalProject:
         apriltag_subscriber = rospy.Subscriber('/minihawk_SIM/MH_usb_camera_link_optical/tag_detections', AprilTagDetectionArray, self.apriltag_return)
         while not self.apriltag_detection and not rospy.is_shutdown():
             rospy.sleep(0.1)
-        rospy.sleep(2.5)
+        rospy.sleep(3)
 
     def finetune_position(self):
         #setting to qloiter
@@ -89,7 +89,7 @@ class FinalProject:
 
                 print(apriltag_x_offset, apriltag_y_offset)
 
-                if abs(apriltag_x_offset) < 0.5 and abs(apriltag_y_offset) < 0.5:
+                if abs(apriltag_x_offset) < 1 and abs(apriltag_y_offset) < 1:
                     print('it tried to break')
                     break
                 
