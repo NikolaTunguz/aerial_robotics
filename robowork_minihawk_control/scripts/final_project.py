@@ -70,6 +70,19 @@ class FinalProject:
 
         publish_control = rospy.Publisher('/minihawk_SIM/mavros/rc/override', OverrideRCIn, queue_size = 10)
 
+
+        #pid variables
+        Kp = 15.0
+        Ki = 0.1
+        Kd = 5.0
+
+        integral_x = 0.0
+        integral_y = 0.0
+        prev_error_x = 0.0
+        prev_error_y = 0.0
+
+        last_time = rospy.Time.now().to_sec()
+
         #adjusting position
         while True:
             if self.apriltag_data:
@@ -81,17 +94,26 @@ class FinalProject:
                 print(apriltag_x_offset, apriltag_y_offset)
 
                 if abs(apriltag_x_offset) < 1 and abs(apriltag_y_offset) < 1:
-                    #break
                     print('it tried to break')
+                    break
                 
+                current_time = rospy.Time.now().to_sec()
+                dt = max(current_time - last_time, 1e-3) 
+                last_time = current_time
 
-                #calculate roll
-                p = 50
-                roll = max(1000, min(2000, int (1500 + p * apriltag_y_offset)))
+                #calculate roll 
+                integral_y += apriltag_y_offset * dt
+                derivative_y = (apriltag_y_offset - prev_error_y) / dt
+                roll_out = Kp * apriltag_y_offset + Ki * integral_y + Kd * derivative_y
+                prev_error_y = apriltag_y_offset
+                roll = int(max(1000, min(2000, 1500 + roll_out)))
 
                 #calculate pitch
-                p = 50
-                pitch = max(1000, min(2000, int (1500 - p * apriltag_x_offset)))
+                integral_x += apriltag_x_offset * dt
+                derivative_x = (apriltag_x_offset - prev_error_x) / dt
+                pitch_out = Kp * apriltag_x_offset + Ki * integral_x + Kd * derivative_x
+                prev_error_x = apriltag_x_offset
+                pitch = int(max(1000, min(2000, 1500 - pitch_out)))
 
                 throttle = 1500
                 yaw = 1500
