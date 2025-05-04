@@ -47,6 +47,11 @@ class FinalProject:
             self.apriltag_data = message.detections[0]
             self.apriltag_detection = True
 
+    def get_position_orientation(self, pose):
+        while hasattr(pose, "pose"):
+            pose = pose.pose
+        return pose.position, pose.orientation
+
     def wait_for_apriltag(self):
         apriltag_subscriber = rospy.Subscriber('/minihawk_SIM/MH_usb_camera_link_optical/tag_detections', AprilTagDetectionArray, self.apriltag_return)
         while not self.apriltag_detection and not rospy.is_shutdown():
@@ -60,7 +65,6 @@ class FinalProject:
         except rospy.ServiceException as e:
             print('Errored: ', e)
 
-
         publish_control = rospy.Publisher('/minihawk_SIM/mavros/rc/override', OverrideRCIn, queue_size = 10)
 
         #adjusting position
@@ -72,7 +76,8 @@ class FinalProject:
                 apriltag_y_offset = apriltag_position.y
 
                 if abs(apriltag_x_offset) < 0.1 and abs(apriltag_y_offset) < 0.1:
-                    break
+                    #break
+                    print('it tried to break')
                 
 
                 #calculate roll
