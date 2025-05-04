@@ -86,7 +86,7 @@ class FinalProject:
 
                 #calculate roll
                 p = 5
-                roll = max(1000, min(2000, int (1500 - p * apriltag_y_offset)))
+                roll = max(1000, min(2000, int (1500 + p * apriltag_y_offset)))
 
                 #calculate pitch
                 p = 5
